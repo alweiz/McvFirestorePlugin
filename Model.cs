@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using YouTubeLiveSitePlugin;
+using PluginCommon;
 
 namespace McvFirestorePlugin
 {
@@ -21,7 +22,14 @@ namespace McvFirestorePlugin
         public string FirebaseConfigJsonPath
         {
             get => _options.FirebaseConfigJsonPath;
-            set => _options.FirebaseConfigJsonPath = value;
+            set
+            {
+                if (_options.FirebaseConfigJsonPath != value)
+                {
+                    _options.FirebaseConfigJsonPath = value;
+                    RaisePropertyChanged(nameof(FirebaseConfigJsonPath));
+                }
+            }
         }
         public string FirestoreYouTubeLiveCommentCollectionPath
         {

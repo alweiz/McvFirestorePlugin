@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace McvFirestorePlugin
 {
-    public class SettingsViewModel : ObservableObject
+    public class SettingsViewModel : ViewModelBase
     {
         #region Commands
         #endregion
@@ -22,7 +22,7 @@ namespace McvFirestorePlugin
             {
                 if (_topmost == value) return;
                 _topmost = value;
-                OnPropertyChanged(nameof(Topmost));
+                RaisePropertyChanged(nameof(Topmost));
             }
         }
         public bool IsEnabled
@@ -33,7 +33,7 @@ namespace McvFirestorePlugin
                 if (_model.IsEnabled != value)
                 {
                     _model.IsEnabled = value;
-                    OnPropertyChanged(nameof(IsEnabled));
+                    RaisePropertyChanged(nameof(IsEnabled));
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace McvFirestorePlugin
                 if (_model.FirebaseProjectId != value)
                 {
                     _model.FirebaseProjectId = value;
-                    OnPropertyChanged(nameof(FirebaseProjectId));
+                    RaisePropertyChanged(nameof(FirebaseProjectId));
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace McvFirestorePlugin
                 if (_model.FirebaseConfigJsonPath != value)
                 {
                     _model.FirebaseConfigJsonPath = value;
-                    OnPropertyChanged(nameof(FirebaseConfigJsonPath));
+                    RaisePropertyChanged(nameof(FirebaseConfigJsonPath));
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace McvFirestorePlugin
                 if (_model.FirestoreYouTubeLiveCommentCollectionPath != value)
                 {
                     _model.FirestoreYouTubeLiveCommentCollectionPath = value;
-                    OnPropertyChanged(nameof(FirestoreYouTubeLiveCommentCollectionPath));
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveCommentCollectionPath));
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace McvFirestorePlugin
                 if (_model.FirestoreYouTubeUserCollectionPath != value)
                 {
                     _model.FirestoreYouTubeUserCollectionPath = value;
-                    OnPropertyChanged(nameof(FirestoreYouTubeUserCollectionPath));
+                    RaisePropertyChanged(nameof(FirestoreYouTubeUserCollectionPath));
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace McvFirestorePlugin
                 if (_model.FirestoreYouTubeLiveConnectedCollectionPath != value)
                 {
                     _model.FirestoreYouTubeLiveConnectedCollectionPath = value;
-                    OnPropertyChanged(nameof(FirestoreYouTubeLiveConnectedCollectionPath));
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveConnectedCollectionPath));
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace McvFirestorePlugin
                 if (_model.FirestoreYouTubeLiveDisconnectedCollectionPath != value)
                 {
                     _model.FirestoreYouTubeLiveDisconnectedCollectionPath = value;
-                    OnPropertyChanged(nameof(FirestoreYouTubeLiveDisconnectedCollectionPath));
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveDisconnectedCollectionPath));
                 }
             }
         }
@@ -137,7 +137,7 @@ namespace McvFirestorePlugin
                 if (_model.DateWidth != value)
                 {
                     _model.DateWidth = value;
-                    OnPropertyChanged(nameof(DateWidth));
+                    RaisePropertyChanged(nameof(DateWidth));
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace McvFirestorePlugin
                 if (_model.IdWidth != value)
                 {
                     _model.IdWidth = value;
-                    OnPropertyChanged(nameof(IdWidth));
+                    RaisePropertyChanged(nameof(IdWidth));
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace McvFirestorePlugin
                 if (_model.NameWidth != value)
                 {
                     _model.NameWidth = value;
-                    OnPropertyChanged(nameof(NameWidth));
+                    RaisePropertyChanged(nameof(NameWidth));
                 }
             }
         }
@@ -173,7 +173,7 @@ namespace McvFirestorePlugin
                 if (_model.CalledWidth != value)
                 {
                     _model.CalledWidth = value;
-                    OnPropertyChanged(nameof(CalledWidth));
+                    RaisePropertyChanged(nameof(CalledWidth));
                 }
             }
         }
@@ -192,17 +192,37 @@ namespace McvFirestorePlugin
                 IsEnabled = true;
             }
         }
+        [GalaSoft.MvvmLight.Ioc.PreferredConstructor]
         internal SettingsViewModel(Model model, Dispatcher dispatcher)
         {
             _model = model;
             _dispatcher = dispatcher;
+            _model.PropertyChanged += Model_PropertyChanged;
         }
 
-        protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
+        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            switch (e.PropertyName)
+            {
+                case nameof(FirebaseConfigJsonPath):
+                    RaisePropertyChanged(nameof(FirebaseConfigJsonPath));
+                    break;
+                case nameof(FirebaseProjectId):
+                    RaisePropertyChanged(nameof(FirebaseProjectId));
+                    break;
+                case nameof(IsEnabled):
+                    RaisePropertyChanged(nameof(IsEnabled));
+                    break;
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public override void Cleanup()
+        {
+            if (_model != null)
+            {
+                _model.PropertyChanged -= Model_PropertyChanged;
+            }
+            base.Cleanup();
+        }
     }
 }
