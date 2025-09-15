@@ -13,6 +13,7 @@
     <Description>Firebase Firestore plugin for MultiCommentViewer</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/alweiz/McvFirestorePlugin</RepositoryUrl>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -57,9 +58,6 @@
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MultiCommentViewer.Interfaces\MultiCommentViewer.Interfaces.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

@@ -15,6 +15,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace SitePlugin
 {
@@ -23,8 +24,12 @@ namespace SitePlugin
         Unknown,
         YouTubeLive,
         NicoLive,
-        Twitch,
-        // Other site types...
+        Twitch
+    }
+
+    public interface IValueChanged
+    {
+        event EventHandler<ValueChangedEventArgs> ValueChanged;
     }
 
     public class ValueChangedEventArgs : EventArgs
@@ -37,6 +42,12 @@ namespace SitePlugin
             NewValue = newValue;
             OldValue = oldValue;
         }
+    }
+
+    public interface ISiteMessage : IValueChanged
+    {
+        string Raw { get; }
+        SiteType SiteType { get; }
     }
 
     public interface IUser
