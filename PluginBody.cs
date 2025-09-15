@@ -17,7 +17,7 @@ namespace McvFirestorePlugin
         {
             get
             {
-                return "Firebaseプラグイン";
+                return "Firestore連携";
             }
         }
         public string Description
