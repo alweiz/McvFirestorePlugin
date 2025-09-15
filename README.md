@@ -22,7 +22,8 @@ A Firebase Firestore plugin for [MultiCommentViewer](https://github.com/ryu-s/Mu
 
 1. **Download the Plugin**
    - Download the latest release from the [Releases](../../releases) page
-   - Extract `McvFirestorePlugin.dll` to your MultiCommentViewer plugins directory
+   - Place `McvFirestorePlugin.dll` in your MultiCommentViewer plugins directory
+   - Note: This plugin requires MultiCommentViewer with plugin support. It may need to be built together with MultiCommentViewer for full compatibility.
 
 2. **Firebase Configuration**
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
@@ -101,7 +102,7 @@ cd McvFirestorePlugin
 # Build the project
 dotnet build
 
-# The compiled plugin will be in src/McvFirestorePlugin/bin/Debug/
+# The compiled plugin will be in bin/Debug/
 ```
 
 ### Requirements
@@ -114,6 +115,8 @@ dotnet build
 - Google.Cloud.Firestore (3.8.0)
 - Newtonsoft.Json (13.0.3)
 - Extended.Wpf.Toolkit (4.6.1)
+- Microsoft.Toolkit.Mvvm (7.1.2)
+- System.ComponentModel.Composition (8.0.0)
 
 ## Troubleshooting
 
