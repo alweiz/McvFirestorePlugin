@@ -17,7 +17,14 @@ namespace McvFirestorePlugin
         public string FirebaseProjectId
         {
             get => _options.FirebaseProjectId;
-            set => _options.FirebaseProjectId = value;
+            set
+            {
+                if (_options.FirebaseProjectId != value)
+                {
+                    _options.FirebaseProjectId = value;
+                    RaisePropertyChanged(nameof(FirebaseProjectId));
+                }
+            }
         }
         public string FirebaseConfigJsonPath
         {
@@ -34,22 +41,50 @@ namespace McvFirestorePlugin
         public string FirestoreYouTubeLiveCommentCollectionPath
         {
             get => _options.FirestoreYouTubeLiveCommentCollectionPath;
-            set => _options.FirestoreYouTubeLiveCommentCollectionPath = value;
+            set
+            {
+                if (_options.FirestoreYouTubeLiveCommentCollectionPath != value)
+                {
+                    _options.FirestoreYouTubeLiveCommentCollectionPath = value;
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveCommentCollectionPath));
+                }
+            }
         }
         public string FirestoreYouTubeUserCollectionPath
         {
             get => _options.FirestoreYouTubeUserCollectionPath;
-            set => _options.FirestoreYouTubeUserCollectionPath = value;
+            set
+            {
+                if (_options.FirestoreYouTubeUserCollectionPath != value)
+                {
+                    _options.FirestoreYouTubeUserCollectionPath = value;
+                    RaisePropertyChanged(nameof(FirestoreYouTubeUserCollectionPath));
+                }
+            }
         }
         public string FirestoreYouTubeLiveConnectedCollectionPath
         {
             get => _options.FirestoreYouTubeLiveConnectedCollectionPath;
-            set => _options.FirestoreYouTubeLiveConnectedCollectionPath = value;
+            set
+            {
+                if (_options.FirestoreYouTubeLiveConnectedCollectionPath != value)
+                {
+                    _options.FirestoreYouTubeLiveConnectedCollectionPath = value;
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveConnectedCollectionPath));
+                }
+            }
         }
         public string FirestoreYouTubeLiveDisconnectedCollectionPath
         {
             get => _options.FirestoreYouTubeLiveDisconnectedCollectionPath;
-            set => _options.FirestoreYouTubeLiveDisconnectedCollectionPath = value;
+            set
+            {
+                if (_options.FirestoreYouTubeLiveDisconnectedCollectionPath != value)
+                {
+                    _options.FirestoreYouTubeLiveDisconnectedCollectionPath = value;
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveDisconnectedCollectionPath));
+                }
+            }
         }
         public double DateWidth
         {
@@ -165,7 +200,14 @@ namespace McvFirestorePlugin
         public bool IsEnabled
         {
             get => _options.IsEnabled;
-            set => _options.IsEnabled = value;
+            set
+            {
+                if (_options.IsEnabled != value)
+                {
+                    _options.IsEnabled = value;
+                    RaisePropertyChanged(nameof(IsEnabled));
+                }
+            }
         }
         //private void WriteComment(string comment)
         //{

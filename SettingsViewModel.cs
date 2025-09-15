@@ -213,6 +213,18 @@ namespace McvFirestorePlugin
                 case nameof(IsEnabled):
                     RaisePropertyChanged(nameof(IsEnabled));
                     break;
+                case nameof(FirestoreYouTubeLiveCommentCollectionPath):
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveCommentCollectionPath));
+                    break;
+                case nameof(FirestoreYouTubeUserCollectionPath):
+                    RaisePropertyChanged(nameof(FirestoreYouTubeUserCollectionPath));
+                    break;
+                case nameof(FirestoreYouTubeLiveConnectedCollectionPath):
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveConnectedCollectionPath));
+                    break;
+                case nameof(FirestoreYouTubeLiveDisconnectedCollectionPath):
+                    RaisePropertyChanged(nameof(FirestoreYouTubeLiveDisconnectedCollectionPath));
+                    break;
             }
         }
 
