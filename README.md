@@ -17,13 +17,51 @@ A Firebase Firestore plugin for [MultiCommentViewer](https://github.com/ryu-s/Mu
 - MultiCommentViewer (compatible version)
 - Firebase project with Firestore enabled
 - Firebase service account JSON file
+- Visual Studio 2019+ or .NET SDK (for building from source)
 
-### Setup Steps
+### Method 1: Integration with MultiCommentViewer (Recommended)
 
-1. **Download the Plugin**
-   - Download the latest release from the [Releases](../../releases) page
-   - Place `McvFirestorePlugin.dll` in your MultiCommentViewer plugins directory
-   - Note: This plugin requires MultiCommentViewer with plugin support. It may need to be built together with MultiCommentViewer for full compatibility.
+Since this plugin requires MultiCommentViewer's interface dependencies, the recommended approach is to integrate it directly:
+
+1. **Clone MultiCommentViewer**
+   ```bash
+   git clone https://github.com/CommentViewerCollection/MultiCommentViewer.git
+   cd MultiCommentViewer
+   ```
+
+2. **Add the Plugin as Submodule**
+   ```bash
+   git submodule add https://github.com/alweiz/McvFirestorePlugin.git McvFirestorePlugin
+   ```
+
+3. **Update Solution File**
+   - Open `MultiCommentViewer.sln` in Visual Studio
+   - Add the plugin project: Right-click solution → Add → Existing Project
+   - Select `McvFirestorePlugin/McvFirestorePlugin.csproj`
+
+4. **Configure Build Integration**
+   - Open `MultiCommentViewer/MultiCommentViewer.csproj`
+   - Add the following to the PostBuild target (around line 109):
+   ```xml
+   :: McvFirestorePluginのファイルを全部持ってくる
+   if not exist "$(OutDir)plugins\McvFirestorePlugin" mkdir "$(OutDir)plugins\McvFirestorePlugin"
+   copy "$(SolutionDir)\McvFirestorePlugin\bin\$(ConfigurationName)\*" "$(OutDir)plugins\McvFirestorePlugin"
+   ```
+
+5. **Build the Solution**
+   ```bash
+   dotnet build
+   ```
+
+### Method 2: Standalone Installation (Advanced)
+
+1. **Download Release**
+   - Download from [Releases](../../releases) page
+   - Extract `McvFirestorePlugin.dll` and dependencies
+
+2. **Manual Installation**
+   - Place all files in `MultiCommentViewer/Output/Debug/plugins/McvFirestorePlugin/`
+   - Note: This method may have dependency issues
 
 2. **Firebase Configuration**
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
@@ -33,7 +71,7 @@ A Firebase Firestore plugin for [MultiCommentViewer](https://github.com/ryu-s/Mu
 
 3. **Plugin Configuration**
    - Launch MultiCommentViewer
-   - Go to Plugin settings and find "Firebaseプラグイン"
+   - Go to Plugin settings and find "Firestore連携"
    - Configure the following settings:
      - **Firebase Project ID**: Your Firebase project ID
      - **Firebase Config JSON Path**: Path to your service account JSON file
@@ -102,7 +140,24 @@ cd McvFirestorePlugin
 # Build the project
 dotnet build
 
+# Run tests
+dotnet test McvFirestorePluginTests/
+
 # The compiled plugin will be in bin/Debug/
+```
+
+### Testing
+
+The project includes comprehensive unit tests covering:
+
+- **Options Management**: Configuration serialization/deserialization
+- **Plugin Lifecycle**: Loading, initialization, and cleanup
+- **Data Validation**: Input validation and error handling
+
+To run tests locally within MultiCommentViewer integration:
+```bash
+cd MultiCommentViewer
+dotnet test McvFirestorePluginTests/
 ```
 
 ### Requirements
